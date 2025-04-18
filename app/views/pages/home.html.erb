@@ -1,0 +1,23 @@
+<h1>Bem-vindo ao Portfólio de Skins CS!</h1>
+
+<% if logged_in? %>
+  <p>Olá, <%= current_user.nickname %>!</p>
+  <%= image_tag current_user.avatar_url, alt: "Avatar de #{current_user.nickname}", size: "50x50" %>
+  <p><%= link_to "Ver Perfil Steam", current_user.profile_url, target: "_blank" %></p>
+  <%= button_to "Logout", logout_path, method: :delete %>
+<% else %>
+  <p>Faça login para gerenciar suas skins.</p>
+  <%= link_to "Login com Steam", "/auth/steam" %> <%# Rota direta para iniciar o processo %>
+<% end %>
+
+<h2>Skins à Venda</h2>
+<%# Aqui listaremos as skins depois %>
+<p>Em breve...</p>
+
+<%# Exibir mensagens flash (notice/alert) %>
+<% if flash[:notice] %>
+  <div style="color: green;"><%= flash[:notice] %></div>
+<% end %>
+<% if flash[:alert] %>
+  <div style="color: red;"><%= flash[:alert] %></div>
+<% end %>

@@ -1,14 +1,25 @@
+# config/routes.rb
 Rails.application.routes.draw do
+  # Rota que o usuário clica para iniciar o login com Steam
+  get "/auth/steam", as: "steam_login"
+
+  # Rota de callback para onde a Steam redireciona após o login
+  match "/auth/:provider/callback", to: "sessions#create", via: [ :get, :post ]
+
+  # Rota para tratar falhas na autenticação
+  get "/auth/failure", to: "sessions#failure"
+
+  # Rota para logout
+  delete "/logout", to: "sessions#destroy", as: "logout"
+
+  # Define a página inicial (vamos criar um controller 'pages' para isso)
+  root "pages#home"
+
+  # Rotas para skins (vamos criar depois)
+  resources :skins, only: [ :index, :show ]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
   # Defines the root path route ("/")
-  # root "posts#index"
+  # root "articles#index"
 end
