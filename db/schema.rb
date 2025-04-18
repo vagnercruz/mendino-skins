@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_18_020039) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_18_021444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "skins", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "weapon", null: false
+    t.string "category"
+    t.string "wear_level"
+    t.decimal "float_value", precision: 18, scale: 17
+    t.integer "pattern_template"
+    t.string "image_url"
+    t.string "inspect_link"
+    t.decimal "price", precision: 10, scale: 2
+    t.boolean "for_sale", default: false, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_skins_on_category"
+    t.index ["for_sale"], name: "index_skins_on_for_sale"
+    t.index ["price"], name: "index_skins_on_price"
+    t.index ["user_id"], name: "index_skins_on_user_id"
+    t.index ["weapon"], name: "index_skins_on_weapon"
+    t.index ["wear_level"], name: "index_skins_on_wear_level"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", null: false
@@ -25,4 +47,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_020039) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["uid"], name: "index_users_on_uid"
   end
+
+  add_foreign_key "skins", "users"
 end
