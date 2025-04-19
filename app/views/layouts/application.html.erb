@@ -27,4 +27,23 @@
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
+  <footer>
+  <hr>
+  <% if admin_signed_in? %> <%# Helper do Devise %>
+    Logado como Admin: <%= current_admin.email %> |
+    <%= link_to 'Área Admin', admin_root_path %> |
+    <%= button_to 'Logout Admin', destroy_admin_session_path, method: :delete %>
+  <% else %>
+    <%# Link para login de admin - pode ser mais discreto %>
+    <%= link_to 'Login Admin', new_admin_session_path %>
+  <% end %>
+
+  <%# Links de usuário Steam (já devem existir) %>
+  <% if logged_in? %>
+     | Logado como User: <%= current_user.nickname %>
+     <%= button_to "Logout User", logout_path, method: :delete %>
+  <% else %>
+     | <%= link_to "Login com Steam", "/auth/steam" %>
+  <% end %>
+</footer>
 </html>

@@ -1,0 +1,5 @@
+<%# app/views/admin/skins/edit.html.erb %>
+<h1>Editar Skin: <%= @skin.name %></h1>
+<%= render 'form', skin: @skin %>
+<%= link_to 'Ver Detalhes', admin_skin_path(@skin) %> |
+<%= link_to 'Voltar para a Lista', admin_skins_path %>

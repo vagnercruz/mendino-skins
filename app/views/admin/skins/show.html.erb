@@ -1,0 +1,18 @@
+<%# app/views/admin/skins/show.html.erb %>
+<h1>Detalhes da Skin: <%= @skin.name %></h1>
+
+<p><strong>Arma:</strong> <%= @skin.weapon %></p>
+<p><strong>Categoria:</strong> <%= @skin.category %></p>
+<p><strong>Desgaste:</strong> <%= @skin.wear_level %></p>
+<p><strong>Float:</strong> <%= @skin.float_value %></p>
+<p><strong>Pattern:</strong> <%= @skin.pattern_template %></p>
+<p><strong>Preço:</strong> <%= number_to_currency(@skin.price) %></p>
+<p><strong>À Venda:</strong> <%= @skin.for_sale? ? 'Sim' : 'Não' %></p>
+<p><strong>Imagem:</strong></p>
+<%= image_tag(@skin.image_url, alt: @skin.name, style: 'max-width: 200px;') if @skin.image_url.present? %>
+<p><strong>Link de Inspeção:</strong> <%= link_to 'Inspecionar', @skin.inspect_link, target: '_blank' if @skin.inspect_link.present? %></p>
+<p><strong>Adicionada em:</strong> <%= l @skin.created_at, format: :short %></p> <%# 'l' é para localizar data/hora %>
+<p><strong>Pertence a:</strong> <%= @skin.user.nickname %> (ID: <%= @skin.user_id %>)</p>
+
+<%= link_to 'Editar', edit_admin_skin_path(@skin) %> |
+<%= link_to 'Voltar para a Lista', admin_skins_path %>
