@@ -1,5 +1,6 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  devise_for :admins
   # Rota que o usuário clica para iniciar o login com Steam
   get "/auth/steam", as: "steam_login"
 
